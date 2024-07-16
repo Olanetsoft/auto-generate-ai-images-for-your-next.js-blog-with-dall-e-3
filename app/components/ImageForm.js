@@ -8,37 +8,6 @@ export default function ImageForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const generateImage = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/generate-image", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setImageUrl(decodeURIComponent(data.imageUrl));
-    } catch (error) {
-      console.error("Error generating image:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const saveImage = () => {
-    const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = `${title.replace(/\s+/g, "_")}.png`;
-    link.click();
-  };
-
   return (
     <div>
       <input
@@ -50,7 +19,6 @@ export default function ImageForm() {
         className="border rounded-lg p-2 w-full mb-4 text-black"
       />
       <button
-        onClick={generateImage}
         className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-600 transition-colors"
         disabled={loading}
       >
@@ -72,10 +40,7 @@ export default function ImageForm() {
             width={1200}
             height={628}
           />
-          <button
-            onClick={saveImage}
-            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
-          >
+          <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
             Save Image
           </button>
         </div>
