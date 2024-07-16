@@ -1,4 +1,3 @@
-// Works too but not gotten there
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -58,7 +57,7 @@ export async function POST(req) {
             font_family: "Roboto",
             font_size: 70,
             font_weight: "bold",
-            text: encodeURIComponent(title),
+            text: encodeURIComponent(encodeURIComponent(title)),
           },
           color: "white",
           gravity: "center",
